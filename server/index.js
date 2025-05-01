@@ -56,10 +56,19 @@ if (!fs.existsSync('uploads')) {
 
 // Serve React app in production
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
-    });
+    // Serve static files from the React app
+    const buildPath = path.join(__dirname, '../client/build');
+    
+    // Check if build directory exists
+    if (fs.existsSync(buildPath)) {
+        app.use(express.static(buildPath));
+        app.get('*', (req, res) => {
+            res.sendFile(path.resolve(buildPath, 'index.html'));
+        });
+    } else {
+        console.error('Build directory not found:', buildPath);
+        process.exit(1);
+    }
 }
 
 // Root route for testing
