@@ -1,0 +1,14 @@
+{
+    "name": "multi-step-app",
+    "version": "1.0.0",
+    "description": "Multi-step form application",
+    "scripts": {
+      "start": "node server/index.js",
+      "server": "cd server && npm run dev",
+      "client": "cd client && npm run start",
+      "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "devDependencies": {
+      "concurrently": "^9.1.2"
+    }
+  }
